@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ip_address');
-            $table->string('browser-info');
+            $table->string('browser_info');
             $table->timestamps();
         });
     }

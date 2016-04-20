@@ -18,12 +18,12 @@
 
             <div class="form-group {{$errors->has('email') ? 'has-error' : ''}}">
                 <label for="email">E-mail: *</label>
-                {!! Form::email('email', null, array('required', 'class'=>'form-control','type'=>'email', 'placeholder'=>'E-mail')) !!}
+                {!! Form::email('email', null, array('required', 'class'=>'form-control','type'=>'email', 'placeholder'=>'name@example.com')) !!}
             </div>
 
             <div class="form-group {{$errors->has('homepahe') ? 'has-error' : ''}}">
                 <label for="homepage">Homepage: </label>
-                {!! Form::text('homepage', null, array('class'=>'form-control', 'placeholder'=>'Homepage')) !!}
+                {!! Form::text('homepage', null, array('class'=>'form-control', 'placeholder'=>'http://example.com')) !!}
             </div>
     
             <div class="form-group {{$errors->has('message') ? 'has-error' : ''}}">

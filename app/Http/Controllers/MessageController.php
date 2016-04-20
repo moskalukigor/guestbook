@@ -26,7 +26,7 @@ class MessageController extends Controller
         $this->validate($request,[
             'name' => 'required|max:120|min:4',
             'email' => 'required|email|max:120|min:4',
-            'homepahe' => 'max:120',
+            'homepage' => 'max:120|active_url',
             'message' => 'max:1024',
             
         ]);
@@ -43,6 +43,22 @@ class MessageController extends Controller
         $usr = new User; 
         $msg = new Message;
         
+        $chkIp = User::where('ip_address' , '=', $ipaddress)->first();
+        $userId;
+        
+        if($chkIp['ip_address'] != $ipaddress)
+        {
+            $usr->ip_address = $ipaddress;
+            $usr->browser_info = $browserInfo;
+            $usr->save();
+            $userId = $usr->id;
+        }
+        else
+        {
+            $userId = $chkIp['id'];
+        }
+        
+        $msg->user_id = $userId;
         $msg->name = $name;
         $msg->email = $email;
         $msg->homepage = $homepage;
