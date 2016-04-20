@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Cookie;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,68 +12,55 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-   
+    
+        
+        
+        $type = '';
+        $ascordesc = '';    
+        switch($request['sort'])
+        {
+           case 'id_desc': $type = 'id'; $ascordesc = 'desc'; break;
+           case 'name_desc': $type = 'name'; $ascordesc = 'desc';  break;
+           case 'email_desc': $type = 'email'; $ascordesc = 'desc';  break;
+           case 'created_at_desc': $type = 'created_at'; $ascordesc = 'desc';  break;
+           case 'id_asc': $type = 'id'; $ascordesc = 'asc'; break;
+           case 'name_asc': $type = 'name'; $ascordesc = 'asc';  break;
+           case 'email_asc': $type = 'email'; $ascordesc = 'asc';  break;
+           case 'created_at_asc': $type = 'created_at'; $ascordesc = 'asc';  break;
+           default: $type = 'id'; $ascordesc = 'desc';
+        }
+        
+//        $response = new \Illuminate\Http\Response();
+//      $response->withCookie(cookie('name', 'my value', 60));
+//      return $response;
+        
+        
      $data = [
             'title' => 'Гостьова книга',
-            'messages' => Message::latest()->paginate(2),
+            'messages' => Message::orderBy($type,$ascordesc)->paginate(2),
             'count' => Message::count(),
             ];
-    
-    
-    
-
+     
         return view('pages.messages.index',$data);
     }
     
-    public function edit($id)
-    {
-        $data = [
-            'title' => 'Гостьова книга (Редагування)',
-            'pagetitle' => 'Гостьова книга (Редагування)',
-            'messages' => Message::find($id),
-        ];
-        return view('pages.messages.edit',$data);
-    }
-    
-    public function store(Request $request)
-    {
-        $this->validate($request,[
-            'name' => 'required|max:120|min:4',
-            'email' => 'required|email|max:120|min:4',
-            'homepahe' => 'max:120',
-            'message' => 'max:1024',
-            
-        ]);
-        
-        $ipaddress = getenv('REMOTE_ADDR');
-        $browserInfo = $request->server('HTTP_USER_AGENT');
-        dd($browserInfo + $ipaddress);
-        
-        $name = $request['name'];
-        $email = $request['email'];
-        $homepage = $request['homepage'];
-        $message = $request['message'];
-
-        $usr = new User;
-        
-//        $msg = new Message;
-//        $msg->name = $name;
-//        $msg->email = $email;
-//        $msg->homepage = $homepage;
-//        $msg->message = $message;
-//        $msg->save();
-        
-        $data = [
-            'title' => 'Гостьова книга',
-            'messages' => Message::latest()->paginate(2),
-            'count' => Message::count(),
-        ];
-        
-        return view('pages.messages.index',$data);
-    }
-    
+//    public function sort()
+//    {
+//
+//     
+//        
+//     $data = [
+//            'title' => 'Гостьова книга',
+//            'messages' => Message::orderBy($type,$ascordesc)->paginate(2),
+//            'count' => Message::count(),
+//            ];
+//     
+//        return view('pages.messages.index',$data);
+//    }
+//    
+  
    
     
 }

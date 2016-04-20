@@ -10,7 +10,7 @@
                 <span>
                     #{!! $message->id !!}
                     @unless (empty($message->email))
-                        <a href='mailto:{{$message->email}}'>{{$message->email}}</a>
+                        <a href='mailto:{{$message->email}}'>{{$message->email}} ({{ $message->name }})</a>
                     @else
                         {{ $message->name }}
                     @endunless
