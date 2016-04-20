@@ -14,9 +14,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-    
-        
-        
+
         $type = '';
         $ascordesc = '';    
         switch($request['sort'])

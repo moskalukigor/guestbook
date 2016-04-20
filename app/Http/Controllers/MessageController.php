@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
 
+use Validator;
+use Illuminate\Support\Facades\Redirect;
+
 use App\Http\Requests;
 
 class MessageController extends Controller
@@ -21,15 +24,37 @@ class MessageController extends Controller
         return view('pages.messages.edit',$data);
     }
     
-    public function store(Request $request)
+    public function validator(array $data)
     {
-        $this->validate($request,[
+        $messages  = [
+            'required' => "Обов'язкове поле не заповнене",
+            'max' => 'Перевищено кількість символів у полі.',
+            'min' => 'Мінімальна кількість символів: <b>4</b>',
+            'active_url' => 'Неправильний тип url. Приклад: <b>http://example.com</b>',
+            'email' => 'Неправильний тип пошти. Приклад: <b>name@example.com</b>',
+            'valid_captcha' => 'Неправильно введений перевірочний код',
+        ];
+        
+         return Validator::make($data,[
             'name' => 'required|max:120|min:4',
             'email' => 'required|email|max:120|min:4',
             'homepage' => 'max:120|active_url',
             'message' => 'max:1024',
-            
-        ]);
+            'CaptchaCode' => 'required|valid_captcha',
+        ],$messages);
+    }
+    
+    public function store(Request $request)
+    {
+
+        $validator = $this->validator($request->all());
+        
+        if ($validator->fails())
+        {
+           return Redirect::to('/')->withErrors($validator);
+        }
+        
+        
         
         $ipaddress = getenv('REMOTE_ADDR');
         $browserInfo = $request->server('HTTP_USER_AGENT');

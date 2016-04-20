@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{{ $title }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
     </head>
     <body>
         

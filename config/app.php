@@ -120,7 +120,6 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
     'providers' => [
 
         /*
@@ -148,6 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        LaravelCaptcha\Providers\LaravelCaptchaServiceProvider::class,
 
         /*
          * Application Service Providers...
