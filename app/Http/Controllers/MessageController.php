@@ -8,9 +8,7 @@ use App\Models\User;
 use App\Models\Message;
 
 use Validator;
-use Illuminate\Support\Facades\Redirect;
 
-use App\Http\Requests;
 
 class MessageController extends Controller
 {
@@ -47,11 +45,18 @@ class MessageController extends Controller
     public function store(Request $request)
     {
 
+                
         $validator = $this->validator($request->all());
+       
+        //dd($request->getClientIps());
+	//dd($validator->errors());
+        
         
         if ($validator->fails())
         {
-           return Redirect::to('/')->withErrors($validator);
+           return redirect()
+            ->back()
+            ->withErrors($validator);
         }
         
         

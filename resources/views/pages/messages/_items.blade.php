@@ -2,7 +2,7 @@
     
 @if (! $messages->isEmpty())
     @foreach ($messages as $message)
-        <div class="panel panel-default">
+        <div class="panel panel-default ">
 
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -22,16 +22,6 @@
 
         <div class="panel-body">
             {{ $message->message }}
-            <hr/>
-            <div class="pull-right">
-                <a class="btn btn-info" href="#">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </a>
-                <button class="btn btn-danger">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </button>
-            </div>
-        </div>
         </div>
     </div>
     @endforeach

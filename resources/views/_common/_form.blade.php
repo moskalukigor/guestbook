@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 @if(count($errors) > 0)
     <div class="row">
         <div class="col-md-6">
@@ -21,7 +25,7 @@
                 {!! Form::email('email', null, array('required', 'class'=>'form-control','type'=>'email', 'placeholder'=>'name@example.com')) !!}
             </div>
 
-            <div class="form-group {{$errors->has('homepahe') ? 'has-error' : ''}}">
+            <div class="form-group {{$errors->has('homepage') ? 'has-error' : ''}}">
                 <label for="homepage">Homepage: </label>
                 {!! Form::text('homepage', null, array('class'=>'form-control', 'placeholder'=>'http://example.com')) !!}
             </div>
@@ -33,7 +37,7 @@
 
             <div class="form-group">
                 {!! captcha_image_html('ExampleCaptcha') !!}
-                <input type="text" id="CaptchaCode" name="CaptchaCode">
+                {!! Form::text('CaptchaCode', null, array('required', 'id'=>'CaptchaCode')) !!}
             </div>
             <div class="form-group">
                  {!! Form::submit('Додати', array('class'=>'btn btn-primary')) !!}

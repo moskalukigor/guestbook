@@ -37,7 +37,7 @@ class HomeController extends Controller
         
      $data = [
             'title' => 'Гостьова книга',
-            'messages' => Message::orderBy($type,$ascordesc)->paginate(2),
+            'messages' => Message::orderBy($type,$ascordesc)->paginate(15),
             'count' => Message::count(),
             ];
      
